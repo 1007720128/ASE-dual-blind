@@ -16,7 +16,7 @@ from numpy import ndarray as arr
 from scipy.stats import pearsonr
 from sklearn.metrics.pairwise import cosine_similarity
 
-from algos.MAPPO import GR_MAPPO, GR_MAPPOPolicy
+from algos.CMA import GR_MAPPO, GR_MAPPOPolicy
 from algos.gnn_util import format_training_duration, compute_mcs_edge_adj, \
     compute_disseminated_workload
 from algos.ppo_buffer import GraphReplayBuffer
@@ -48,7 +48,7 @@ class GMPERunner:
 
     def __init__(self, num_servers=8, num_services=5):
         self.n_rollout_threads = 1
-        self.envs = EdgeCloudSim(n_server=num_servers)
+        self.envs = EdgeCloud(n_server=num_servers)
         self.svc_adj = self.envs.application.adj[np.newaxis, ...].repeat(num_servers, axis=0)
         self.num_env_steps = 10000
         self.episode_length = 200
