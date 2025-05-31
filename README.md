@@ -9,3 +9,10 @@ runner is the entry point for functions. Within it, GMPERunner().train() is used
 Potential Issues:
 1. Incorrect directory structure.
 2. Issues caused by path changes.
+   While execution requires infrastructure, we confirm that:
+
+- The training and inference code reflects the exact implementation used in the submitted paper;
+- Hyperparameters and reward functions match those in the experimental section;
+- Evaluation metrics (e.g., SLA violation, P95 latency) are computed as described in the manuscript.
+
+We believe the provided materials support transparent inspection of the core contributions.

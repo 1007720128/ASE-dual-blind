@@ -746,8 +746,8 @@ class GR_Actor(nn.Module):
         else:
             nbd_features = self.gnn_base(node_obs, adj, agent_id)
             # nbd_features = torch.cat([node_obs[0], torch.zeros(8, 6)], -1)
-            # svc_features = self.gatv2(svc_obs, svc_adj)
-            actor_features = torch.cat([obs, nbd_features], dim=1)
+            svc_features = self.gatv2(svc_obs, svc_adj)
+            actor_features = torch.cat([obs, nbd_features, svc_features], dim=1)
             actor_features = self.base(actor_features)
 
         if self._use_naive_recurrent_policy or self._use_recurrent_policy:
@@ -963,7 +963,7 @@ class GR_Critic(nn.Module):
             )  # CHECK from where are these agent_ids coming
             svc_adj = svc_adj[0].unsqueeze(0).repeat(adj.shape[0], 1, 1)
             svc_features = self.gatv2(svc_obs, svc_adj)
-            critic_features = torch.cat([nbd_features], -1)
+            critic_features = torch.cat([nbd_features, svc_features], -1)
             critic_features = self.base(critic_features)  # Cent obs here
 
         if self._use_naive_recurrent_policy or self._use_recurrent_policy:
